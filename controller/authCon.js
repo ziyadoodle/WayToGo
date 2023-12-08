@@ -4,17 +4,20 @@ const { auth } = require('../config/firebase')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
 
-//need attention: body pake format x-www-urlencoded. kalo pake raw providernya jd anonymous jd gabisa login
 //================================================================================================================
 const signUp = async (req, res) => {
     try {
-        const { displayName, email, password } = req.body;
+        const { username, email, password } = req.body;
 
         const userRecord = await admin.auth().createUser({
-            displayName,
+            displayName: username,
             email,
             password,
         })
+
+        if (!username || !email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
 
         const verificationLink = await admin.auth().generateEmailVerificationLink(email);
 
@@ -50,7 +53,7 @@ const signUp = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json("Sign Up failed.");
+        res.status(500).json("Sign Up failed. " + error);
     }
 };
 
@@ -112,8 +115,8 @@ const getUserProfile = async (req, res) => {
 
         const userProfile = {
             uid: userRecord.uid,
-            email: userRecord.email,
-            displayName: userRecord.displayName
+            username: userRecord.displayName,
+            email: userRecord.email
         }
 
         res.status(200).json({ user: userProfile })

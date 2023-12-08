@@ -15,7 +15,7 @@ route.get('/profile', verifyToken, getUserProfile)
 
 
 route.get('/place', verifyToken, place)
-route.get('/search/:place_name', verifyToken, placeByName)
+route.get('/search/:name', verifyToken, placeByName)
 route.get('/place/:place_id', verifyToken, detailPlace)
 route.get('/popular', verifyToken, popularPlace)
 

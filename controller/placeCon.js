@@ -32,6 +32,22 @@ const placeByName = (req, res) => {
     )
 }
 
+//Get Place By City
+const placeByCity = (req, res) => {
+    const placeCity = req.params.formatted_address;
+    connection.query(
+        "SELECT * FROM Place_destination WHERE formatted_address LIKE ?",
+        [`%${placeCity}%`],
+        function (err, rows) {
+            if (err) {
+                res.status(500).json('Internal Server Error');
+            } else {
+                res.status(200).json(rows);
+            }
+        }
+    )
+}
+
 
 //Get Detail Place
 const detailPlace = (req, res) => {
@@ -65,4 +81,4 @@ const popularPlace = (req, res) => {
     )
 }
 
-module.exports = {place, placeByName, detailPlace, popularPlace}
+module.exports = {place, placeByName, detailPlace, popularPlace, placeByCity}

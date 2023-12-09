@@ -7,7 +7,6 @@ const app = express()
 
 // // Parsing body
 app.use(express.urlencoded({ extended: false }))
-//app.use(bodyParser.urlencoded({ extended: false }))
 // Parsing JSON
 app.use(express.json())
 app.use(bodyParser.json())

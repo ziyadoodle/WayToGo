@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(bodyParser.json())
 // Set port
-const port = 3000
+const port = 8080
 // Trust proxy
 app.set('trust proxy', true)
 // Set view engine
@@ -20,5 +20,5 @@ app.set('view engine', 'ejs')
 app.use('/', routes)
 
 app.listen(port, () => {
-    console.log(`running at http://localhost:${port}`)
+    console.log(`listening to ${port}`)
 })

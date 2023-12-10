@@ -25,7 +25,7 @@ const signUp = async (req, res) => {
             host: "smtp.gmail.com",
             auth: {
                 user: "waytogojabar@gmail.com",
-                pass: "dwnzsmmoyqnjesjt"
+                pass: "osds ycdn lqxd snqw"
             }
         });
 

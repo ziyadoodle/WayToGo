@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1Ssn8vdii0PHNFkAVj0IfALzecD1AE6-j
 """
 
-pip install geopy
 
 # Commented out IPython magic to ensure Python compatibility.
 # Untuk pengolahan data

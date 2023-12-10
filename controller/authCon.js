@@ -16,6 +16,7 @@ const signUp = async (req, res) => {
         })
 
         if (!username || !email || !password) {
+            await admin.auth().deleteUser(userRecord.uid);
             return res.status(400).json({ message: "All fields are required" });
         }
 
@@ -44,15 +45,23 @@ const signUp = async (req, res) => {
     
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-            console.error("Error sending email:", error);
-            res.status(500).json("Error sending email.");
+                console.error("Error sending email:", error);
+                admin.auth().deleteUser(userRecord.uid).catch(deleteError => {
+                    console.error("Error deleting user:", deleteError);
+                });
+                res.status(500).json("Error sending email.");
             } else {
-            console.log("Email sent:", info.response);
-            res.status(200).json({ message: "Sign Up successful. Please check your email.", user: userRecord });
+                console.log("Email sent:", info.response);
+                res.status(200).json({ message: "Sign Up successful. Please check your email.", user: userRecord });
             }
         });
     } catch (error) {
         console.error(error);
+
+        if (userRecord) {
+            await admin.auth().deleteUser(userRecord.uid);
+        }
+
         res.status(500).json("Sign Up failed. " + error);
     }
 };

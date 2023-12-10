@@ -65,20 +65,4 @@ const detailPlace = (req, res) => {
     )
 }
 
-
-//Get Popular Place
-//nanti ganti sama popularity based recommendation
-const popularPlace = (req, res) => {
-    connection.query(
-        'SELECT * FROM Place_destination WHERE rating > 4.5',
-        function (err, rows) {
-            if (err) {
-                res.status(500).json('Internal Server Error')
-            } else {
-                res.status(200).json(rows)
-            }
-        }
-    )
-}
-
-module.exports = {place, placeByName, detailPlace, popularPlace, placeByCity}
+module.exports = {place, placeByName, detailPlace, placeByCity}

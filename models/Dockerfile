@@ -1,4 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11
+FROM python:3.11
 
 WORKDIR /workspace
 
@@ -14,4 +14,4 @@ ENV NAME World
 
 EXPOSE 8080
 
-CMD ["uvicorn", "main:app"]
+CMD ["python", "main.py"]

@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 import uvicorn
 from pydantic import BaseModel
@@ -96,7 +97,7 @@ def recommend_places(user_location, dataset, max_distance=10, top_k_distance=5, 
 def index():
     return {"message": "WayToGo Model"}
 
-@app.get("/popular_in_your_area")
+@app.post("/popular_in_your_area")
 def get_popular_in_your_area(location: Location):
     user_location = (location.lat, location.lng)
     max_distance = 10  
@@ -107,7 +108,7 @@ def get_popular_in_your_area(location: Location):
     result = nearest_places.to_dict(orient='records')
     return result
 
-@app.get("/popular_destination")
+@app.post("/popular_destination")
 def get_popular_destination(location: Location):
     user_location = (location.lat, location.lng)
     max_distance = 10  
@@ -119,3 +120,11 @@ def get_popular_destination(location: Location):
     top_rated_places = top_rated_places.fillna(0)  # Replace NaN with a valid value
     result = top_rated_places.to_dict(orient='records')
     return result
+
+def start_fastapi_server():
+    port = os.environ.get("PORT", 8080)
+    print(f"Listening to http://0.0.0.0:{port}")
+    uvicorn.run(app, host='0.0.0.0', port=port)
+
+if __name__ == "__main__":
+    start_fastapi_server()

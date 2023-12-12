@@ -10,8 +10,8 @@ COPY . .
 
 ENV PYTHONUNBUFFERED=1
 
-ENV NAME World
+ENV HOST=0.0.0.0
 
 EXPOSE 8080
 
-CMD ["python", "main.py"]
+CMD exec uvicorn main:app --host 0.0.0.0 --port 8080

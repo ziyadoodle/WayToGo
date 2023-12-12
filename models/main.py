@@ -11,7 +11,7 @@ from geopy.geocoders import GoogleV3
 app = FastAPI()
 
 # Initialize Model
-model = tf.keras.models.load_model('./waytogo_model.h5')
+model = tf.keras.models.load_model('./WayToGo_Model.h5')
 
 scaler_location = StandardScaler()
 geolocator = GoogleV3(api_key='AIzaSyD-ktXkaMsEdsxDQuMxJS0qit0O6GXvxQU')
@@ -97,7 +97,7 @@ def recommend_places(user_location, dataset, max_distance=10, top_k_distance=5, 
 def index():
     return {"message": "WayToGo Model"}
 
-@app.post("/popular_in_your_area")
+@app.post("/popular-in-your-area")
 def get_popular_in_your_area(location: Location):
     user_location = (location.lat, location.lng)
     max_distance = 10  
@@ -108,8 +108,8 @@ def get_popular_in_your_area(location: Location):
     result = nearest_places.to_dict(orient='records')
     return result
 
-@app.post("/popular_destination")
-def get_popular_destination(location: Location):
+@app.post("/popular-destination")
+def get_popular_in_your_area(location: Location):
     user_location = (location.lat, location.lng)
     max_distance = 10  
     top_k_distance = 5  
@@ -121,10 +121,5 @@ def get_popular_destination(location: Location):
     result = top_rated_places.to_dict(orient='records')
     return result
 
-def start_fastapi_server():
-    port = os.environ.get("PORT", 8080)
-    print(f"Listening to http://0.0.0.0:{port}")
-    uvicorn.run(app, host='0.0.0.0', port=port)
-
 if __name__ == "__main__":
-    start_fastapi_server()
+    uvicorn.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))

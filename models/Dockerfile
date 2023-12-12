@@ -12,6 +12,6 @@ ENV PYTHONUNBUFFERED=1
 
 ENV HOST=localhost
 
-EXPOSE 8080
+EXPOSE 3030
 
-CMD exec uvicorn main:app --host 0.0.0.0 --port 8080
+CMD exec uvicorn main:app --host 0.0.0.0 --port 3030

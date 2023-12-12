@@ -122,4 +122,4 @@ def get_popular_in_your_area(location: Location):
     return result
 
 if __name__ == "__main__":
-    uvicorn.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    uvicorn.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 3030)))

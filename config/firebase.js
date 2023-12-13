@@ -5,14 +5,14 @@ const admin = require('firebase-admin')
 const credentials = require("../serviceAccountKey.json")
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCmcqjitIX64-9rw9LvWtKXsaOeeTvIw_I",
-    authDomain: "waytogo-project.firebaseapp.com",
-    projectId: "waytogo-project",
-    storageBucket: "waytogo-project.appspot.com",
-    messagingSenderId: "236302172695",
-    appId: "1:236302172695:web:be9a29d46b845e6edb9252",
-    measurementId: "G-CN52QV1YC0"
-}
+    apiKey: "AIzaSyBIJ7MQN0v-KMxP40LFORngx0TYWrM92UA",
+    authDomain: "way-to-go-project.firebaseapp.com",
+    projectId: "way-to-go-project",
+    storageBucket: "way-to-go-project.appspot.com",
+    messagingSenderId: "956453405465",
+    appId: "1:956453405465:web:cd70eeecd87a72aca93b88",
+    measurementId: "G-7ZESHQN61F"
+  };
 
 admin.initializeApp({
     credential: admin.credential.cert(credentials)

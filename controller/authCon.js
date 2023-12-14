@@ -3,6 +3,7 @@ const { signInWithEmailAndPassword } = require('@firebase/auth')
 const { auth } = require('../config/firebase')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
+require('cross-fetch/polyfill')
 
 //================================================================================================================
 const signUp = async (req, res) => {

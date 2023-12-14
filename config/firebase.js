@@ -1,5 +1,6 @@
 //firebase admin SDK
-const { initializeApp } = require('@firebase/app')
+require('cross-fetch/polyfill')
+const client = require('@firebase/app')
 const { getAuth } = require('@firebase/auth')
 const admin = require('firebase-admin')
 const credentials = require("../serviceAccountKey.json")
@@ -14,11 +15,12 @@ const firebaseConfig = {
     measurementId: "G-7ZESHQN61F"
   };
 
+const app = client.initializeApp(firebaseConfig)
+
 admin.initializeApp({
     credential: admin.credential.cert(credentials)
 })
 
-const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 
 module.exports = { app, auth }

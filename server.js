@@ -2,7 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const routes = require('./routes/routes')
 require('dotenv').config()
-require('cross-fetch/polyfill')
 
 const app = express()
 

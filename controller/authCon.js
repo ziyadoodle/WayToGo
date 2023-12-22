@@ -3,12 +3,26 @@ const { signInWithEmailAndPassword } = require('@firebase/auth')
 const { auth } = require('../config/firebase')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
-require('cross-fetch/polyfill')
 
 //================================================================================================================
 const signUp = async (req, res) => {
     try {
         const { username, email, password } = req.body;
+
+        if (password.length < 8) {
+            return res.status(400).json({ message: "Password must be at least 8 characters long" });
+        }
+
+        if (!username || !email || !password) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        const userExists = await admin.auth().getUserByEmail(email).then(() => true).catch(() => false);
+
+        if (userExists) {
+            return res.status(400).json({ message: "Email is already in use" });
+        }
+        
 
         const userRecord = await admin.auth().createUser({
             displayName: username,
@@ -16,10 +30,6 @@ const signUp = async (req, res) => {
             password,
         })
 
-        if (!username || !email || !password) {
-            await admin.auth().deleteUser(userRecord.uid);
-            return res.status(400).json({ message: "All fields are required" });
-        }
 
         const verificationLink = await admin.auth().generateEmailVerificationLink(email);
 
@@ -50,7 +60,7 @@ const signUp = async (req, res) => {
                 admin.auth().deleteUser(userRecord.uid).catch(deleteError => {
                     console.error("Error deleting user:", deleteError);
                 });
-                res.status(500).json("Error sending email.");
+                res.status(500).json({massage:'Error sending email.'});
             } else {
                 console.log("Email sent:", info.response);
                 res.status(200).json({ message: "Sign Up successful. Please check your email.", user: userRecord });
@@ -63,7 +73,7 @@ const signUp = async (req, res) => {
             await admin.auth().deleteUser(userRecord.uid);
         }
 
-        res.status(500).json("Sign Up failed. " + error);
+        res.status(500).json({massage:"Sign Up failed. " + error});
     }
 };
 
@@ -78,14 +88,14 @@ const signIn = async (req, res) => {
         }
 
         if (!user.email || !user.password) {
-            return res.status(400).json({ error: 'All field is required' })
+            return res.status(400).json({ massage: 'All field is required' })
         }
 
         const userCredential = await signInWithEmailAndPassword(auth, user.email, user.password)
         const userRecord = userCredential.user
 
         if (!userRecord.emailVerified) {
-        return res.status(401).json({ error: 'Email not verified. Please check your email for verification instructions.' });
+        return res.status(401).json({ massage: 'Email not verified. Please check your email for verification instructions.' });
         }
 
         // Create a JWT token
@@ -94,7 +104,7 @@ const signIn = async (req, res) => {
         res.status(200).json({ message: "Sign In successful", user: userRecord, token })
     } catch (error) {
         console.error('Error logging in user:', error)
-        res.status(500).json({ error: 'Internal Server Error' })
+        res.status(500).json({ massage: 'Error during signin' })
     }
 }
 
@@ -106,7 +116,7 @@ const signOut = async (req, res) => {
         res.status(200).json({ message: 'Sign Out successful' })
     } catch (error) {
         console.error('Error logging out user:', error)
-        res.status(500).json({ error: 'Internal Server Error' })
+        res.status(500).json({ massage: 'Internal Server Error' })
     }
 }
 
@@ -117,7 +127,7 @@ const getUserProfile = async (req, res) => {
         const decodedToken = req.user
 
         if (!decodedToken || !decodedToken.id) {
-            return res.status(401).json({ error: 'Invalid token or missing UID' })
+            return res.status(401).json({ massage: 'Invalid token or missing UID' })
         }
 
         // Retrieve user information from Firebase Authentication
@@ -132,8 +142,8 @@ const getUserProfile = async (req, res) => {
         res.status(200).json({ user: userProfile })
     } catch (error) {
         console.error('Error retrieving user profile:', error)
-        res.status(500).json({ error: 'Internal Server Error' })
+        res.status(500).json({ massage: 'Internal Server Error' })
     }
 }
 
-module.exports = {signUp, signIn, signOut, getUserProfile}
+module.exports = {signUp, signIn, signOut, getUserProfile,}

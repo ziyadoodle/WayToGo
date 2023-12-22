@@ -56,6 +56,9 @@ def get_location_details_from_address(address):
 # Add city_name to dataset
 dataset['city_name'] = dataset['formatted_address'].apply(get_location_details_from_address)
 
+# Mengganti photo_reference dengan URL
+dataset['photo_reference'] = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' + dataset['photo_reference'] + '&key=AIzaSyD-ktXkaMsEdsxDQuMxJS0qit0O6GXvxQU'
+
 # Calculate haversine distance
 def haversine_vectorize(lon1, lat1, lon2, lat2):
     lon1, lat1, lon2, lat2 = map(np.radians, [lon1, lat1, lon2, lat2])

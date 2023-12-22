@@ -27,3 +27,6 @@ WayToGo is an application to overcome the challenges that tourists often face re
 | Mobile Development | [Github](https://github.com/ziyadoodle/WayToGo/tree/android-development) |
 |  Machine Learning  |  [Github](https://github.com/ziyadoodle/WayToGo/tree/machine-learning)   |
 |   Cloud Computing  |   [Github](https://github.com/ziyadoodle/WayToGo/tree/cloud-computing)   |
+
+# Service Architecture
+![Service_Architecture](https://raw.githubusercontent.com/ziyadoodle/WayToGo/main/ServiceArchitecture.png)

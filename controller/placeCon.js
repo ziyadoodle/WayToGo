@@ -2,6 +2,13 @@ const connection = require('../config/database')
 
 //========================================================================================================
 
+const addPhotoUrlToPlaces = (places) => {
+    return places.map(place => {
+        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${place.photo_reference}&key=AIzaSyD-ktXkaMsEdsxDQuMxJS0qit0O6GXvxQU`;
+        return { ...place, photoUrl };
+    });
+};
+
 // Get All Place with Pagination
 const place = (req, res) => {
     const page = parseInt(req.query.page) || 1;
@@ -17,7 +24,8 @@ const place = (req, res) => {
                 console.log(err);
                 res.status(500).json({massage:"Error get place"});
             } else {
-                res.status(200).json(rows);
+                const placesWithPhotoURLs = addPhotoUrlToPlaces(rows);
+                res.status(200).json(placesWithPhotoURLs);
             }
         }
     );
@@ -34,7 +42,8 @@ const placeByName = (req, res) => {
             if (err) {
                 res.status(500).json({massage:"Error get place"});
             } else {
-                res.status(200).json(rows);
+                const placesWithPhotoURLs = addPhotoUrlToPlaces(rows);
+                res.status(200).json(placesWithPhotoURLs);
             }
         }
     )
@@ -50,7 +59,8 @@ const placeByCity = (req, res) => {
             if (err) {
                 res.status(500).json({massage:"Error get place"});
             } else {
-                res.status(200).json(rows);
+                const placesWithPhotoURLs = addPhotoUrlToPlaces(rows);
+                res.status(200).json(placesWithPhotoURLs);
             }
         }
     )
@@ -67,7 +77,8 @@ const detailPlace = (req, res) => {
             if (err) {
                 res.status(500).json({massage:"Error get place"});
             } else {
-                res.status(200).json(rows);
+                const placesWithPhotoURLs = addPhotoUrlToPlaces(rows);
+                res.status(200).json(placesWithPhotoURLs);
             }
         }
     )

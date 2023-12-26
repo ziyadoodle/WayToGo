@@ -8,7 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.wtg.waytogo.data.pref.UserModel
 import com.wtg.waytogo.data.repository.UserRepository
-import com.wtg.waytogo.data.response.PlaceResponseItem
+import com.wtg.waytogo.data.response.PlaceItem
 
 class ExploreViewModel(private val repository: UserRepository) : ViewModel() {
 
@@ -16,6 +16,6 @@ class ExploreViewModel(private val repository: UserRepository) : ViewModel() {
         return repository.getSession().asLiveData()
     }
 
-    fun getPlace(token: String): LiveData<PagingData<PlaceResponseItem>> = repository.getPlaces(token).cachedIn(viewModelScope)
+    fun getPlace(token: String): LiveData<PagingData<PlaceItem>> = repository.getPlaces(token).cachedIn(viewModelScope)
 
 }

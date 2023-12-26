@@ -12,7 +12,7 @@ import com.wtg.waytogo.data.PlacePagingSource
 import com.wtg.waytogo.data.pref.ResultState
 import com.wtg.waytogo.data.pref.UserModel
 import com.wtg.waytogo.data.pref.UserPreferences
-import com.wtg.waytogo.data.response.PlaceResponseItem
+import com.wtg.waytogo.data.response.PlaceItem
 import com.wtg.waytogo.data.response.SignInResponse
 import com.wtg.waytogo.data.response.SignUpResponse
 import com.wtg.waytogo.data.source.ApiService
@@ -35,7 +35,7 @@ class UserRepository private constructor(
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val error = Gson().fromJson(errorBody, SignInResponse::class.java)
-            emit(error.error?.let { ResultState.Error(it) })
+            emit(error.message?.let { ResultState.Error(it) })
         }
     }
 
@@ -52,7 +52,7 @@ class UserRepository private constructor(
         }
     }
 
-    fun getPlaces(token: String): LiveData<PagingData<PlaceResponseItem>> {
+    fun getPlaces(token: String): LiveData<PagingData<PlaceItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5

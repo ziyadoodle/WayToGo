@@ -1,19 +1,14 @@
 package com.wtg.waytogo.ui.signIn
 
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import com.wtg.waytogo.R
+import androidx.appcompat.app.AppCompatActivity
 import com.wtg.waytogo.data.pref.ResultState
 import com.wtg.waytogo.data.pref.UserModel
-import com.wtg.waytogo.databinding.ActivityMainBinding
 import com.wtg.waytogo.databinding.ActivitySignInBinding
 import com.wtg.waytogo.ui.MainActivity
 import com.wtg.waytogo.ui.ViewModelFactory
@@ -53,7 +48,8 @@ class SignInActivity : AppCompatActivity() {
                                 viewModel.saveSession(
                                     UserModel(
                                         email,
-                                        "${result.data.token}"
+                                        "${result.data.token}",
+                                        result.data.user?.displayName!!
                                     )
                                 )
                                 showLoading(false)
@@ -63,7 +59,8 @@ class SignInActivity : AppCompatActivity() {
                                 setMessage("Anda berhasil login.")
                                 setPositiveButton("Lanjut") { _, _ ->
                                     val intent = Intent(context, MainActivity::class.java)
-                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    intent.flags =
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                     startActivity(intent)
                                     finish()
                                 }

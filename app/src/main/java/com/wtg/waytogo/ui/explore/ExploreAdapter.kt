@@ -1,24 +1,17 @@
 package com.wtg.waytogo.ui.explore
 
-import android.app.Activity
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wtg.waytogo.R
-import com.wtg.waytogo.data.response.PlaceResponseItem
+import com.wtg.waytogo.data.response.PlaceItem
 import com.wtg.waytogo.databinding.ItemRowBinding
 import com.wtg.waytogo.utils.DiffUtilCallback
 
-class ExploreAdapter : PagingDataAdapter<PlaceResponseItem, ExploreAdapter.ListViewHolder>(DiffUtilCallback()) {
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val place = getItem(position)
-        place?.let { holder.bind(it) }
-    }
+class ExploreAdapter :
+    PagingDataAdapter<PlaceItem, ExploreAdapter.ListViewHolder>(DiffUtilCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -28,12 +21,20 @@ class ExploreAdapter : PagingDataAdapter<PlaceResponseItem, ExploreAdapter.ListV
         return ListViewHolder(binding)
     }
 
+    override fun onBindViewHolder(
+        holder: ListViewHolder,
+        position: Int
+    ) {
+        val place = getItem(position)
+        place?.let { holder.bind(it) }
+    }
+
     class ListViewHolder(private val binding: ItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(place: PlaceResponseItem) {
+        fun bind(place: PlaceItem) {
             Glide.with(itemView)
-                .load(place.photoReference)
+                .load(place.photoUrl)
                 .centerCrop()
                 .placeholder(R.drawable.progress_animation)
                 .into(binding.ivItem)

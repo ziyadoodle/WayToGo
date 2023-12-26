@@ -26,19 +26,33 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="match_parent"
+        android:id="@+id/tvGreetUser"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="Hi User1234!"
+        android:text="Hi"
         android:textColor="@color/black"
+        android:fontFamily="@font/montserrat_regular"
         android:textSize="24sp"
         app:fontFamily="@font/montserrat_regular"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
+
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_regular"
+        android:layout_marginStart="8dp"
+        android:text="User1234!"
+        android:textColor="@color/primary"
+        android:textSize="24sp"
+        app:fontFamily="@font/montserrat_regular"
+        app:layout_constraintStart_toEndOf="@id/tvGreetUser"
+        app:layout_constraintTop_toTopOf="@id/tvGreetUser"
+        app:layout_constraintBottom_toBottomOf="@id/tvGreetUser"/>
 
     <ImageView
         android:id="@+id/ivLocation"
@@ -47,8 +61,8 @@
         android:layout_marginTop="16dp"
         android:contentDescription="Location"
         android:src="@drawable/baseline_location_on_24"
-        app:layout_constraintStart_toStartOf="@id/tvUsername"
-        app:layout_constraintTop_toBottomOf="@id/tvUsername"
+        app:layout_constraintStart_toStartOf="@id/tvGreetUser"
+        app:layout_constraintTop_toBottomOf="@id/tvGreetUser"
         app:tint="@color/primary" />
 
     <TextView
@@ -98,12 +112,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        android:scrollbars="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPopular"
-        tools:listitem="@layout/item_popular" />
+        tools:listitem="@layout/item_popular"
+        tools:itemCount="1"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

@@ -1,16 +1,16 @@
 package com.wtg.waytogo.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.wtg.waytogo.data.response.PlaceResponseItem
+import com.wtg.waytogo.data.response.PlaceItem
 
-class DiffUtilCallback : DiffUtil.ItemCallback<PlaceResponseItem>() {
-    override fun areItemsTheSame(oldItem: PlaceResponseItem, newItem: PlaceResponseItem): Boolean {
+class DiffUtilCallback : DiffUtil.ItemCallback<PlaceItem>() {
+    override fun areItemsTheSame(oldItem: PlaceItem, newItem: PlaceItem): Boolean {
         return oldItem == newItem
     }
 
     override fun areContentsTheSame(
-        oldItem: PlaceResponseItem,
-        newItem: PlaceResponseItem
+        oldItem: PlaceItem,
+        newItem: PlaceItem
     ): Boolean {
         return oldItem == newItem
     }

@@ -4,14 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class PlaceResponse(
 
-	@field:SerializedName("message")
-	val message: String? = null,
+	@field:SerializedName("place")
+	val place: List<PlaceItem>? = emptyList(),
 
-	@field:SerializedName("PlaceResponse")
-	val placeResponse: List<PlaceResponseItem>? = emptyList()
+	@field:SerializedName("message")
+	val message: String? = null
 )
 
-data class PlaceResponseItem(
+data class PlaceItem(
+
+	@field:SerializedName("photoUrl")
+	val photoUrl: String? = null,
 
 	@field:SerializedName("formatted_address")
 	val formattedAddress: String? = null,

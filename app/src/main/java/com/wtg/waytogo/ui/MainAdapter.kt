@@ -6,11 +6,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wtg.waytogo.R
-import com.wtg.waytogo.data.response.PlaceResponseItem
+import com.wtg.waytogo.data.response.PlaceItem
 import com.wtg.waytogo.databinding.ItemPopularBinding
 import com.wtg.waytogo.utils.DiffUtilCallback
 
-class MainAdapter : PagingDataAdapter<PlaceResponseItem, MainAdapter.ListViewHolder>(DiffUtilCallback()) {
+class MainAdapter : PagingDataAdapter<PlaceItem, MainAdapter.ListViewHolder>(DiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ItemPopularBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,9 +24,9 @@ class MainAdapter : PagingDataAdapter<PlaceResponseItem, MainAdapter.ListViewHol
 
     class ListViewHolder(private val binding: ItemPopularBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(place: PlaceResponseItem) {
+        fun bind(place: PlaceItem) {
             Glide.with(itemView)
-                .load(place.photoReference)
+                .load(place.photoUrl)
                 .centerCrop()
                 .placeholder(R.drawable.progress_animation)
                 .into(binding.ivPopular)

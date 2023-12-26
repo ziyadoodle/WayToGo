@@ -38,7 +38,7 @@ class ExploreActivity : AppCompatActivity() {
         recyclerView = binding.rvPlace
         adapter = ExploreAdapter()
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter
 
         viewModel.getSession().observe(this) { user ->

@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = binding.rvPopular
         adapter = MainAdapter()
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
 
         viewModel.getSession().observe(this) { user ->
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
             } else {
+                binding.tvUsername.text = user.username
                 val adapter = MainAdapter()
                 lifecycleScope.launch {
                     adapter.loadStateFlow.collectLatest { loadStates ->
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.bottom_explore -> {
                     startActivity(Intent(this, ExploreActivity::class.java))
+                    @Suppress("DEPRECATION")
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     finish()
                     true
@@ -88,6 +90,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.bottom_wishlist -> {
                     startActivity(Intent(this, WishlistActivity::class.java))
+                    @Suppress("DEPRECATION")
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     finish()
                     true

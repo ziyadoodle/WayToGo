@@ -1,14 +1,10 @@
 package com.wtg.waytogo.ui.profile
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.wtg.waytogo.R
+import androidx.appcompat.app.AppCompatActivity
 import com.wtg.waytogo.databinding.ActivityProfileBinding
-import com.wtg.waytogo.ui.MainActivity
 import com.wtg.waytogo.ui.ViewModelFactory
-import com.wtg.waytogo.ui.explore.ExploreActivity
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -22,6 +18,11 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel.getSession().observe(this) { user ->
+            binding.tvUsername.text = user.username
+            binding.tvEmail.text = user.email
+        }
 
         binding.signOutButton.setOnClickListener {
             viewModel.logout()

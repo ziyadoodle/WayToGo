@@ -46,7 +46,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-    implementation("androidx.paging:paging-runtime-ktx:3.1.0") // paging 3
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1") // paging 3
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
